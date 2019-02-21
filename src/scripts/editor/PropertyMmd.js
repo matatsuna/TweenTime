@@ -18,16 +18,30 @@ export default class PropertyMmd extends PropertyBase {
 
         var data = {
             id: {
-                translate: {
-                    x: this.instance_property.name + "TranslateX",
-                    y: this.instance_property.name + "TranslateY",
+                position: {
+                    x: this.instance_property.name + "PositionX",
+                    y: this.instance_property.name + "PositionY",
+                    z: this.instance_property.name + "PositionZ",
+                },
+                rotation: {
+                    x: this.instance_property.name + "RotationX",
+                    y: this.instance_property.name + "RotationY",
+                    z: this.instance_property.name + "RotationZ",
+                    a: this.instance_property.name + "RotationA",
                 }
             }, // "circleRadius" instead of "circle radius"
             label: this.instance_property.label || this.instance_property.name,
             val: {
-                translate: {
-                    x: 100,
-                    y: 100
+                position: {
+                    x: 200,
+                    y: 200,
+                    z: 200
+                },
+                rotation: {
+                    x: 0,
+                    y: 0,
+                    z: 0,
+                    a: 0
                 }
             }
         };
