@@ -4,6 +4,7 @@ import PropertyColor from './PropertyColor';
 import PropertyTween from './PropertyTween';
 import PropertyEvent from './PropertyEvent';
 import PropertyVector3 from './PropertyVector3';
+import PropertyVector4 from './PropertyVector4';
 import PropertyFooter from './PropertyFooter';
 
 export default class Property {
@@ -164,6 +165,9 @@ export default class Property {
         }
         else if (instance_prop.type === 'vector3') {
             PropClass = PropertyVector3;
+        }
+        else if (instance_prop.type === 'vector4') {
+            PropClass = PropertyVector4;
         }
         var prop = new PropClass(instance_prop, lineData, this.editor, key_val);
         prop.keyAdded.add(this.onKeyAdded);
