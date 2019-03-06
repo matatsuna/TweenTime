@@ -55,20 +55,27 @@
         var data = [
             {
                 "id": "box",
-                "group": "MMD",
                 "label": "Box 1",
                 "properties": [
                     {
                         "name": "x",
-                        "type": "mmd",
+                        "type": "vector3",
                         "keys": [
                             {
                                 "time": 0,
-                                "val": 0
+                                "val": {
+                                    x: 100,
+                                    y: 200,
+                                    z: 300
+                                }
                             },
                             {
                                 "time": 2,
-                                "val": 100,
+                                "val": {
+                                    x: 400,
+                                    y: 500,
+                                    z: 600
+                                },
                                 "ease": "Quart.easeInOut"
                             }
                         ],
