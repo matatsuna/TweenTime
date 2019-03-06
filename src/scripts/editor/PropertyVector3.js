@@ -48,17 +48,11 @@ export default class PropertyVector3 extends PropertyBase {
             draggableOptions.max = this.instance_property.max;
         }
 
-        var draggable = new DraggableNumber($input[0], draggableOptions);
-        $($input[0]).data('draggable', draggable);
-        $($input[0]).change(this.onInputChange);
-
-        var draggable = new DraggableNumber($input[1], draggableOptions);
-        $($input[1]).data('draggable', draggable);
-        $($input[1]).change(this.onInputChange);
-
-        var draggable = new DraggableNumber($input[2], { dragThreshold: 0.1 });
-        $($input[2]).data('draggable', draggable);
-        $($input[2]).change(this.onInputChange);
+        for (let i = 0; i < $input.length; i++) {
+            var draggable = new DraggableNumber($input[i], draggableOptions);
+            $($input[i]).data('draggable', draggable);
+            $($input[i]).change(this.onInputChange);
+        }
     }
 
     remove() {
