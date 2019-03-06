@@ -3,6 +3,7 @@ import PropertyNumber from './PropertyNumber';
 import PropertyColor from './PropertyColor';
 import PropertyTween from './PropertyTween';
 import PropertyEvent from './PropertyEvent';
+import PropertyMmd from './PropertyMmd';
 import PropertyFooter from './PropertyFooter';
 
 export default class Property {
@@ -136,7 +137,7 @@ export default class Property {
   }
 
   remove() {
-    this.items.forEach((item) => {item.remove();});
+    this.items.forEach((item) => { item.remove(); });
     if (this.keyAdded) {
       this.keyAdded.dispose();
     }
@@ -160,6 +161,9 @@ export default class Property {
     }
     else if (instance_prop.type === 'event') {
       PropClass = PropertyEvent;
+    }
+    else if (instance_prop.type === 'mmd') {
+      PropClass = PropertyMmd;
     }
     var prop = new PropClass(instance_prop, lineData, this.editor, key_val);
     prop.keyAdded.add(this.onKeyAdded);
