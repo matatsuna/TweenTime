@@ -4,7 +4,8 @@
   "author": "stimul.ch / David Mignot",
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
-    "build:watch": "npm run build -- --watch"
+    "build:watch": "npm run build -- --watch",
+    "build:production": "npm run build -- --mode production"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
