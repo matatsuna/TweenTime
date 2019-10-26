@@ -1,4 +1,4 @@
-let Signals = require('js-signals');
+let Signals = require('signals');
 import PropertyNumber from './PropertyNumber';
 import PropertyColor from './PropertyColor';
 import PropertyTween from './PropertyTween';

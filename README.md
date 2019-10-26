@@ -4,6 +4,12 @@
 
 ![screenshot](screenshot.gif)
 
+## 行った変更
+- webpack化
+- js-signalsをsignalsへ
+- TweenTime.main.jsに集約
+- setimmediateを読み込み
+
 ## Demo
 
 [Basic example](https://idflood.github.io/TweenTime/examples/basic.html)

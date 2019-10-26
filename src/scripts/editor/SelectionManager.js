@@ -1,5 +1,5 @@
 let d3 = require('d3');
-let Signals = require('js-signals');
+let Signals = require('signals');
 let _ = require('lodash');
 
 export default class SelectionManager {
@@ -55,7 +55,7 @@ export default class SelectionManager {
   removeItem(item) {
     // If we pass an _id then search for the item and remove it.
     if (typeof item === 'string') {
-      let itemObj = _.find(this.selection, function(el) {
+      let itemObj = _.find(this.selection, function (el) {
         return el._id === item;
       });
       if (itemObj) {
@@ -72,7 +72,7 @@ export default class SelectionManager {
   }
 
   sortSelection() {
-    var compare = function(a, b) {
+    var compare = function (a, b) {
       if (!a.time || !b.time) {
         return 0;
       }

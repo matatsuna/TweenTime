@@ -1,5 +1,5 @@
 let d3 = require('d3');
-let Signals = require('js-signals');
+let Signals = require('signals');
 import Utils from '../core/Utils';
 
 export default class Properties {
@@ -15,7 +15,7 @@ export default class Properties {
         return d.properties;
       }
       else {
-        return d.properties.filter((prop) => {return prop.keys.length;});
+        return d.properties.filter((prop) => { return prop.keys.length; });
       }
     }
     return [];
@@ -52,7 +52,7 @@ export default class Properties {
       .attr('y', 0)
       .attr('width', self.timeline.x(self.timeline.timer.totalDuration + 100))
       .attr('height', self.timeline.lineHeight)
-      .on('dblclick', function(d) {
+      .on('dblclick', function (d) {
         const lineValue = d._line;
         let def = d.default ? d.default : 0;
         const mouse = d3.mouse(this);
@@ -98,14 +98,14 @@ export default class Properties {
 
     // Hide property line separator if curve editor is enabled.
     bar.selectAll('.line-separator--secondary')
-      .attr('x2', function() {
+      .attr('x2', function () {
         if (editor.curveEditEnabled) {
           return 0;
         }
         return self.timeline.x(self.timeline.timer.totalDuration + 100);
       });
 
-    bar.selectAll('.line-item').attr('display', function(property) {
+    bar.selectAll('.line-item').attr('display', function (property) {
       if (!property._line.collapsed) {
         return 'block';
       }
@@ -113,7 +113,7 @@ export default class Properties {
     });
 
     // Hide click handler if curve editor mode.
-    bar.selectAll('.click-handler').attr('display', function() {
+    bar.selectAll('.click-handler').attr('display', function () {
       if (!editor.curveEditEnabled) {
         return 'block';
       }

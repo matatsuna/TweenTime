@@ -1,7 +1,5 @@
-let Signals = require('js-signals');
-let TweenMax = require('TweenMax');
-let TimelineMax = require('TimelineMax');
-let Quad = require('Quad');
+let Signals = require('signals');
+import { TweenMax, TimelineMax, Quad } from "gsap";
 
 import Utils from './Utils';
 import BezierEasing from 'bezier-easing';
@@ -11,7 +9,7 @@ export default class Orchestrator {
     this.update = this.update.bind(this);
     this.timer = timer;
     this.data = data;
-    this.mainTimeline = new TimelineMax({paused: true});
+    this.mainTimeline = new TimelineMax({ paused: true });
     this.onUpdate = new Signals.Signal();
     this.timer.updated.add(this.update);
     this.update(0);

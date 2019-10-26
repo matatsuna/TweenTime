@@ -1,5 +1,5 @@
 let d3 = require('d3');
-let Signals = require('js-signals');
+let Signals = require('signals');
 import Utils from '../core/Utils';
 
 const MAX_HEIGHT = 190;
@@ -26,7 +26,7 @@ export default class PropertyCurveEdit {
   bezierPoint(pt, prev, next) {
     const x = this.normalizeVal(pt.x, 0, 1, prev.x, next.x);
     const y = this.normalizeVal(pt.y, 0, 1, prev.y, next.y);
-    return {x, y};
+    return { x, y };
   }
 
   // Transform an array of points to a SVG bezier path.
@@ -56,7 +56,7 @@ export default class PropertyCurveEdit {
       d._curvePoints = [];
       d._curvePointsBezier = [];
       d._controlPoints = [];
-      return [{points: [], name: d.name}];
+      return [{ points: [], name: d.name }];
     }
     // preprocess min and max for keys.
     d._min = d3.min(d.keys, (k) => k.val);
@@ -67,7 +67,7 @@ export default class PropertyCurveEdit {
     d.keys.forEach((key) => {
       const x = this.timeline.x(key.time * 1000);
       const y = this.normalizeVal(key.val, d._min, d._max, 0, MAX_HEIGHT);
-      d._curvePoints.push({x, y, ease: key.ease, id: `curve1-${key._id}`, _key: key});
+      d._curvePoints.push({ x, y, ease: key.ease, id: `curve1-${key._id}`, _key: key });
     });
 
     // Control points, grouped by point + handle.
@@ -80,11 +80,11 @@ export default class PropertyCurveEdit {
       if (isNaN(pt.x) || isNaN(pt.y)) {
         invalid = true;
       }
-      d._curvePointsBezier.push({x: pt.x, y: pt.y, ease: pt.ease, _key: pt._key});
+      d._curvePointsBezier.push({ x: pt.x, y: pt.y, ease: pt.ease, _key: pt._key });
       if (next) {
         const easing = Utils.getEasingPoints(next.ease);
-        const p1 = this.bezierPoint({x: easing[0], y: easing[1]}, pt, next);
-        const p2 = this.bezierPoint({x: easing[2], y: easing[3]}, pt, next);
+        const p1 = this.bezierPoint({ x: easing[0], y: easing[1] }, pt, next);
+        const p2 = this.bezierPoint({ x: easing[2], y: easing[3] }, pt, next);
 
         // Save prev point for time calculation on drag move.
         p1._next = next;
@@ -100,12 +100,12 @@ export default class PropertyCurveEdit {
         d._curvePointsBezier.push(p2);
         // If non number points return an empty path.
         if (isNaN(next.x) || isNaN(next.y) ||
-            isNaN(p1.x) || isNaN(p1.y) ||
-            isNaN(p2.x) || isNaN(p2.y)) {
+          isNaN(p1.x) || isNaN(p1.y) ||
+          isNaN(p2.x) || isNaN(p2.y)) {
           invalid = true;
         }
-        d._controlPoints.push({point: pt, handle: p1, id: `${pt._key._id}-a`});
-        d._controlPoints.push({point: next, handle: p2, id: `${pt._key._id}-b`});
+        d._controlPoints.push({ point: pt, handle: p1, id: `${pt._key._id}-a` });
+        d._controlPoints.push({ point: next, handle: p2, id: `${pt._key._id}-b` });
       }
     });
     const path = this.getPath(d._curvePointsBezier);
@@ -114,9 +114,9 @@ export default class PropertyCurveEdit {
       d._curvePoints = [];
       d._curvePointsBezier = [];
       d._controlPoints = [];
-      return [{points: [], name: d.name}];
+      return [{ points: [], name: d.name }];
     }
-    return [{points: d._curvePoints, path, name: d.name}];
+    return [{ points: d._curvePoints, path, name: d.name }];
   }
 
   render() {
@@ -215,7 +215,7 @@ export default class PropertyCurveEdit {
       .data(pointVal, pointKey);
 
     // Handle line.
-    const dragHandleStart = function(d) {
+    const dragHandleStart = function (d) {
       var event = d3.event;
       // with dragstart event the mousevent is is inside the event.sourcEvent
       if (event.sourceEvent) {
@@ -226,7 +226,7 @@ export default class PropertyCurveEdit {
       d._dom = this;
     };
 
-    const dragHandleMove = function(d) {
+    const dragHandleMove = function (d) {
       var sourceEvent = d3.event.sourceEvent;
 
       const point = d.handle._next;
@@ -271,7 +271,7 @@ export default class PropertyCurveEdit {
     };
 
     const dragHandle = d3.behavior.drag()
-      .origin((d) => {return d;})
+      .origin((d) => { return d; })
       .on('drag', dragHandleMove)
       .on('dragstart', dragHandleStart)
       .on('dragend', dragHandleEnd);
@@ -316,7 +316,7 @@ export default class PropertyCurveEdit {
         fill: '#aaa',
         r: 4
       })
-      .on('mousedown', function() {
+      .on('mousedown', function () {
         // Don't trigger mousedown on handler else
         // it create the selection rectangle
         d3.event.stopPropagation();

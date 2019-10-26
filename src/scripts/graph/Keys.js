@@ -1,5 +1,5 @@
 let d3 = require('d3');
-let Signals = require('js-signals');
+let Signals = require('signals');
 import Utils from '../core/Utils';
 let _ = require('lodash');
 
@@ -11,7 +11,7 @@ export default class Keys {
 
   selectNewKey(data) {
     var self = this;
-    var key = d3.selectAll('.key').filter(function(item) {
+    var key = d3.selectAll('.key').filter(function (item) {
       return item._id === data._id;
     });
     if (key.length) {
@@ -27,7 +27,7 @@ export default class Keys {
     const self = this;
     const tweenTime = self.timeline.tweenTime;
 
-    const dragmove = function(key_data) {
+    const dragmove = function (key_data) {
       const sourceEvent = d3.event.sourceEvent;
       const propertyData = key_data._property;
       const lineData = propertyData._line;
@@ -48,7 +48,7 @@ export default class Keys {
         selection_last_time = selection[selection.length - 1].time;
       }
 
-      selection = _.filter(selection, (item) => {return _.isEqual(item, key_data) === false;});
+      selection = _.filter(selection, (item) => { return _.isEqual(item, key_data) === false; });
 
       var timeMatch = false;
       if (sourceEvent.shiftKey) {
@@ -63,7 +63,7 @@ export default class Keys {
       propertyData.keys = Utils.sortKeys(propertyData.keys);
       var time_offset = key_data.time - old_time;
 
-      var updateKeyItem = function(item) {
+      var updateKeyItem = function (item) {
         var property = item._property;
         property._line._isDirty = true;
         property.keys = Utils.sortKeys(property.keys);
@@ -103,10 +103,10 @@ export default class Keys {
       self.onKeyUpdated.dispatch();
     };
 
-    var propValue = function(d) {
+    var propValue = function (d) {
       return d.keys;
     };
-    var propKey = function(d) {
+    var propKey = function (d) {
       if (!d._id) {
         d._id = Utils.guid();
       }
@@ -115,7 +115,7 @@ export default class Keys {
     var keys = properties.select('.line-item__keys').selectAll('.key').data(propValue, propKey);
 
     // Hide keys if curve editor mode.
-    properties.select('.line-item__keys').attr('display', function() {
+    properties.select('.line-item__keys').attr('display', function () {
       if (!self.timeline.editor.curveEditEnabled) {
         return 'block';
       }
@@ -123,7 +123,7 @@ export default class Keys {
     });
 
     // selectKey is triggered by dragstart event
-    var selectKey = function(key_data) {
+    var selectKey = function (key_data) {
       var event = d3.event;
       // with dragstart event the mousevent is is inside the event.sourcEvent
       if (event.sourceEvent) {
@@ -145,12 +145,12 @@ export default class Keys {
       self.timeline.selectionManager.select(key_data, addToSelection);
     };
 
-    var dragend = function() {
+    var dragend = function () {
       self.timeline.editor.undoManager.addState();
     };
 
     var drag = d3.behavior.drag()
-      .origin((d) => {return d;})
+      .origin((d) => { return d; })
       .on('drag', dragmove)
       .on('dragstart', selectKey)
       .on('dragend', dragend);
@@ -159,8 +159,8 @@ export default class Keys {
       .append('g')
       .attr('class', 'key')
       // Use the unique id added in propKey above for the dom element id.
-      .attr('id', (d) => {return d._id;})
-      .on('mousedown', function() {
+      .attr('id', (d) => { return d._id; })
+      .on('mousedown', function () {
         // Don't trigger mousedown on linescontainer else
         // it create the selection rectangle
         d3.event.stopPropagation();
@@ -168,7 +168,7 @@ export default class Keys {
       .call(drag);
 
     properties.selectAll('.key')
-      .attr('class', function(d) {
+      .attr('class', function (d) {
         var cls = 'key';
         // keep selected class
         if (d3.select(this).classed('key--selected')) {
@@ -245,7 +245,7 @@ export default class Keys {
       .attr('class', 'key__shape-arrow')
       .attr('d', 'M 0 -6 L 6 0 L 0 6');
 
-    keys.attr('transform', function(d) {
+    keys.attr('transform', function (d) {
       var dx = self.timeline.x(d.time * 1000);
       dx = parseInt(dx, 10);
       var dy = 10;

@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../dist/styles/editor.css">
-  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="../src/fonts/icomoon/style.css">
   <style>
     body {
@@ -32,22 +32,7 @@
   </div>
   <div id="timeline-container"></div>
 
-  <!-- TweenTime dependencies -->
-  <!-- <script src="../src/scripts/bower_components/gsap/src/uncompressed/TweenMax.js"></script>
-    <script src="../src/scripts/bower_components/gsap/src/uncompressed/TimelineMax.js"></script>
-    <script src="../src/scripts/bower_components/js-signals/dist/signals.js"></script> -->
-
-  <!-- Editor dependencies -->
-  <!-- <script src="../src/scripts/bower_components/jquery/dist/jquery.js"></script>
-    <script src="../src/scripts/bower_components/spectrum/spectrum.js"></script>
-    <script src="../src/scripts/bower_components/d3/d3.js"></script>
-    <script src="../src/scripts/bower_components/lodash/lodash.js"></script>
-    <script src="../src/scripts/bower_components/draggable-number.js/dist/draggable-number.js"></script>
-    <script src="../src/scripts/bower_components/file-saver/FileSaver.js"></script> -->
-
   <!-- TweenTime & Editor -->
-  <!-- <script src="../dist/scripts/TweenTime.Editor.js"></script>
-  <script src="../dist/scripts/TweenTime.Core.js"></script> -->
   <script src="../dist/scripts/TweenTime.main.js"></script>
 
   <!-- Example script -->
@@ -124,7 +109,8 @@
         ]
       }
     ];
-    console.log(window.Editor);
+    console.log(TweenTime);
+    let $ = TweenTime.$;
     var tweenTime = new TweenTime.Core(data);
     var editor = new TweenTime.Editor(tweenTime, {
       el: $('#timeline-container')

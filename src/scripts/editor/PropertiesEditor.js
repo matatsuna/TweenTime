@@ -1,5 +1,5 @@
 import 'jquery';
-let Signals = require('js-signals');
+let Signals = require('signals');
 import Property from '../editor/Property';
 
 let tpl_propertiesEditor = require('./../templates/propertiesEditor.tpl.html');
@@ -33,7 +33,7 @@ export default class PropertiesEditor {
     this.selectionManager.onSelect.add(this.onSelect);
 
     // Stop event propagation to no play by accident.
-    this.$el.keypress(function(e) {
+    this.$el.keypress(function (e) {
       return e.stopPropagation();
     });
   }
@@ -43,7 +43,7 @@ export default class PropertiesEditor {
   }
 
   onSelect(data = false) {
-    this.items.forEach((item) => {item.remove();});
+    this.items.forEach((item) => { item.remove(); });
     this.items = [];
     this.$container.empty();
     if (data instanceof Array) {
@@ -71,6 +71,6 @@ export default class PropertiesEditor {
     if (!time_changed) {
       return;
     }
-    this.items.forEach((prop) => {prop.update();});
+    this.items.forEach((prop) => { prop.update(); });
   }
 }

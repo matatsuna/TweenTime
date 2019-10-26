@@ -1,4 +1,4 @@
-let Signals = require('js-signals');
+let Signals = require('signals');
 let _ = require('lodash');
 import Utils from '../core/Utils';
 

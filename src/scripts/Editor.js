@@ -1,4 +1,4 @@
-var tpl_timeline = require('html-loader!./templates/timeline.tpl.html');
+var tpl_timeline = require('./templates/timeline.tpl.html');
 import Timeline from './graph/Timeline';
 import PropertiesEditor from './editor/PropertiesEditor';
 import EditorMenu from './editor/EditorMenu';
@@ -106,4 +106,6 @@ class Editor {
   }
 }
 
-module.exports = Editor;
+// module.exports = Editor;
+
+export default Editor;
