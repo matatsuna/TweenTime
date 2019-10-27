@@ -2,6 +2,7 @@
   "name": "TweenTime",
   "version": "3.0.4",
   "author": "stimul.ch / David Mignot",
+  "main": "src/scripts/app.js",
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
     "build:watch": "npm run build -- --watch",
