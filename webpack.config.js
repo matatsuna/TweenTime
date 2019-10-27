@@ -22,7 +22,7 @@ module.exports = [{
             },
             { test: /\.css$/, use: 'css-loader' },
             {
-                test: /\.tpl.html$/,
+                test: /\.tpl\.html$/,
                 loader: 'mustache-loader'
             },
         ]
