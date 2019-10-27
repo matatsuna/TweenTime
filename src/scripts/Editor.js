@@ -6,7 +6,7 @@ import EditorControls from './editor/EditorControls';
 import SelectionManager from './editor/SelectionManager';
 import Exporter from './editor/Exporter';
 import UndoManager from './editor/UndoManager';
-let Signals = require('js-signals');
+let Signals = require('signals');
 
 class Editor {
   constructor(tweenTime, options = {}) {
@@ -46,7 +46,7 @@ class Editor {
     // Public events.
     this.onSelect = new Signals.Signal();
     var self = this;
-    this.selectionManager.onSelect.add(function(selection, addToSelection) {
+    this.selectionManager.onSelect.add(function (selection, addToSelection) {
       // Propagate the event.
       self.onSelect.dispatch(selection, addToSelection);
     });
@@ -106,4 +106,6 @@ class Editor {
   }
 }
 
-module.exports = Editor;
+// module.exports = Editor;
+
+export default Editor;

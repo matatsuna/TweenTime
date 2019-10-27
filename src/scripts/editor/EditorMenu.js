@@ -1,4 +1,4 @@
-let saveAs = require('file-saver').saveAs || require('file-saver');
+let FileSaver = require('file-saver');
 
 export default class EditorMenu {
   constructor(tweenTime, $timeline, editor) {
@@ -34,13 +34,13 @@ export default class EditorMenu {
 
   initExport() {
     var exporter = this.editor.exporter;
-    this.$timeline.find('[data-action="export"]').click(function(e) {
+    this.$timeline.find('[data-action="export"]').click(function (e) {
       e.preventDefault();
       var data = exporter.getJSON();
       var blob = new Blob([data], {
         type: 'text/json;charset=utf-8'
       });
-      saveAs(blob, 'data.json');
+      FileSaver.saveAs(blob, 'data.json');
     });
   }
 

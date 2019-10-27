@@ -1,5 +1,5 @@
 let d3 = require('d3');
-let Signals = require('js-signals');
+let Signals = require('signals');
 let _ = require('lodash');
 import Utils from '../core/Utils';
 
@@ -16,11 +16,11 @@ export default class Items {
     const tweenTime = self.timeline.tweenTime;
     const editor = self.timeline.editor;
 
-    const selectBar = function(data) {
+    const selectBar = function (data) {
       self.timeline.selectionManager.select(data);
     };
 
-    const dragmove = function(d) {
+    const dragmove = function (d) {
       const dx = self.timeline.x.invert(d3.event.x).getTime() / 1000;
       const diff = dx - d.start;
       d.start += diff;
@@ -38,7 +38,7 @@ export default class Items {
       self.onUpdate.dispatch();
     };
 
-    const dragmoveLeft = function(d) {
+    const dragmoveLeft = function (d) {
       d3.event.sourceEvent.stopPropagation();
       var sourceEvent = d3.event.sourceEvent;
       var dx = self.timeline.x.invert(d3.event.x).getTime() / 1000;
@@ -55,7 +55,7 @@ export default class Items {
       self.onUpdate.dispatch();
     };
 
-    const dragmoveRight = function(d) {
+    const dragmoveRight = function (d) {
       d3.event.sourceEvent.stopPropagation();
       var sourceEvent = d3.event.sourceEvent;
       var dx = self.timeline.x.invert(d3.event.x).getTime() / 1000;
@@ -73,29 +73,29 @@ export default class Items {
     };
 
     const dragLeft = d3.behavior.drag()
-      .origin(function() {
+      .origin(function () {
         var t = d3.select(this);
-        return {x: t.attr('x'), y: t.attr('y')};
+        return { x: t.attr('x'), y: t.attr('y') };
       })
       .on('drag', dragmoveLeft);
 
     const dragRight = d3.behavior.drag()
-      .origin(function() {
+      .origin(function () {
         var t = d3.select(this);
-        return {x: t.attr('x'), y: t.attr('y')};
+        return { x: t.attr('x'), y: t.attr('y') };
       })
       .on('drag', dragmoveRight);
 
     const drag = d3.behavior.drag()
-      .origin(function() {
+      .origin(function () {
         var t = d3.select(this);
-        return {x: t.attr('x'), y: t.attr('y')};
+        return { x: t.attr('x'), y: t.attr('y') };
       })
       .on('drag', dragmove);
 
     const bar_border = 1;
     const bar = this.container.selectAll('.line-grp')
-      .data(this.timeline.tweenTime.data, (d) => {return d.id;});
+      .data(this.timeline.tweenTime.data, (d) => { return d.id; });
 
     const barEnter = bar.enter()
       .append('g').attr('class', 'line-grp');
@@ -115,7 +115,7 @@ export default class Items {
     barContainerRight.append('rect')
       .attr('class', 'bar')
       // Add a unique id for SelectionManager.removeDuplicates
-      .attr('id', () => {return Utils.guid();})
+      .attr('id', () => { return Utils.guid(); })
       .attr('y', 3)
       .attr('height', 14);
 
@@ -134,7 +134,7 @@ export default class Items {
       .call(dragRight);
 
     self.dy = 10 + this.timeline.margin.top;
-    bar.attr('transform', function(d) {
+    bar.attr('transform', function (d) {
       var y = self.dy;
       self.dy += self.timeline.lineHeight;
       if (!d.collapsed) {
@@ -143,7 +143,7 @@ export default class Items {
           if (editor.options.showEmptyProperties) {
             var visibleProperties = d.properties;
           } else {
-            var visibleProperties = _.filter(d.properties, function(prop) {
+            var visibleProperties = _.filter(d.properties, function (prop) {
               return prop.keys.length;
             });
           }
@@ -154,7 +154,7 @@ export default class Items {
       return 'translate(0,' + y + ')';
     });
 
-    const barWithStartAndEnd = function(d) {
+    const barWithStartAndEnd = function (d) {
       if (d.start !== undefined && d.end !== undefined) {
         return true;
       }
@@ -163,8 +163,8 @@ export default class Items {
 
     bar.selectAll('.bar-anchor--left')
       .filter(barWithStartAndEnd)
-      .attr('x', (d) => {return self.timeline.x(d.start * 1000) - 1;})
-      .on('mousedown', function() {
+      .attr('x', (d) => { return self.timeline.x(d.start * 1000) - 1; })
+      .on('mousedown', function () {
         // Don't trigger mousedown on linescontainer else
         // it create the selection rectangle
         d3.event.stopPropagation();
@@ -172,8 +172,8 @@ export default class Items {
 
     bar.selectAll('.bar-anchor--right')
       .filter(barWithStartAndEnd)
-      .attr('x', (d) => {return self.timeline.x(d.end * 1000) - 1;})
-      .on('mousedown', function() {
+      .attr('x', (d) => { return self.timeline.x(d.end * 1000) - 1; })
+      .on('mousedown', function () {
         // Don't trigger mousedown on linescontainer else
         // it create the selection rectangle
         d3.event.stopPropagation();
@@ -181,13 +181,13 @@ export default class Items {
 
     bar.selectAll('.bar')
       .filter(barWithStartAndEnd)
-      .attr('x', (d) => {return self.timeline.x(d.start * 1000) + bar_border;})
-      .attr('width', function(d) {
+      .attr('x', (d) => { return self.timeline.x(d.start * 1000) + bar_border; })
+      .attr('width', function (d) {
         return Math.max(0, (self.timeline.x(d.end) - self.timeline.x(d.start)) * 1000 - bar_border);
       })
       .call(drag)
       .on('click', selectBar)
-      .on('mousedown', function() {
+      .on('mousedown', function () {
         // Don't trigger mousedown on linescontainer else
         // it create the selection rectangle
         d3.event.stopPropagation();
@@ -197,9 +197,9 @@ export default class Items {
       .attr('class', 'line-label')
       .attr('x', self.timeline.label_position_x + 10)
       .attr('y', 16)
-      .text((d) => {return d.label;})
+      .text((d) => { return d.label; })
       .on('click', selectBar)
-      .on('mousedown', function() {
+      .on('mousedown', function () {
         // Don't trigger mousedown on linescontainer else
         // it create the selection rectangle
         d3.event.stopPropagation();
@@ -209,12 +209,12 @@ export default class Items {
       .attr('class', 'line__toggle')
       .attr('x', self.timeline.label_position_x - 10)
       .attr('y', 16)
-      .on('click', function(d) {
+      .on('click', function (d) {
         d.collapsed = !d.collapsed;
         self.onUpdate.dispatch();
       });
 
-    bar.selectAll('.line__toggle').text(function(d) {
+    bar.selectAll('.line__toggle').text(function (d) {
       if (d.collapsed) {
         return '▸';
       }
@@ -229,7 +229,7 @@ export default class Items {
 
     // Hide property line separator if curve editor is enabled.
     bar.selectAll('.line-separator')
-      .attr('x2', function() {
+      .attr('x2', function () {
         if (editor.curveEditEnabled) {
           return 0;
         }

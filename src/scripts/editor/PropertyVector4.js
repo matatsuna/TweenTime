@@ -2,9 +2,9 @@ import 'jquery';
 import PropertyBase from './PropertyBase';
 let DraggableNumber = require('draggable-number.js');
 
-let tpl_property = require('../templates/propertyMmd.tpl.html');
+let tpl_property = require('../templates/PropertyVector4.tpl.html');
 
-export default class PropertyMmd extends PropertyBase {
+export default class PropertyVector4 extends PropertyBase {
     constructor(instance_property, lineData, editor, key_val = false) {
         super(instance_property, lineData, editor, key_val);
         this.onInputChange = this.onInputChange.bind(this);
@@ -18,32 +18,13 @@ export default class PropertyMmd extends PropertyBase {
 
         var data = {
             id: {
-                position: {
-                    x: this.instance_property.name + "PositionX",
-                    y: this.instance_property.name + "PositionY",
-                    z: this.instance_property.name + "PositionZ",
-                },
-                rotation: {
-                    x: this.instance_property.name + "RotationX",
-                    y: this.instance_property.name + "RotationY",
-                    z: this.instance_property.name + "RotationZ",
-                    a: this.instance_property.name + "RotationA",
-                }
+                x: this.instance_property.name + "X",
+                y: this.instance_property.name + "Y",
+                z: this.instance_property.name + "Z",
+                z: this.instance_property.name + "W"
             }, // "circleRadius" instead of "circle radius"
             label: this.instance_property.label || this.instance_property.name,
-            val: {
-                position: {
-                    x: 200,
-                    y: 200,
-                    z: 200
-                },
-                rotation: {
-                    x: 0,
-                    y: 0,
-                    z: 0,
-                    a: 0
-                }
-            }
+            val: val
         };
 
         var view = tpl_property(data);
@@ -59,7 +40,7 @@ export default class PropertyMmd extends PropertyBase {
             changeCallback: () => this.onInputChange(),
             endCallback: () => onChangeEnd()
         };
-        draggableOptions.min = 0;
+
         // Set min & max if they are defined.
         if ('min' in this.instance_property) {
             draggableOptions.min = this.instance_property.min;
@@ -68,10 +49,11 @@ export default class PropertyMmd extends PropertyBase {
             draggableOptions.max = this.instance_property.max;
         }
 
-        var draggable = new DraggableNumber($input.get(0), draggableOptions);
-        $input.data('draggable', draggable);
-
-        $input.change(this.onInputChange);
+        for (let i = 0; i < $input.length; i++) {
+            var draggable = new DraggableNumber($input[i], draggableOptions);
+            $($input[i]).data('draggable', draggable);
+            $($input[i]).change(this.onInputChange);
+        }
     }
 
     remove() {
@@ -88,13 +70,40 @@ export default class PropertyMmd extends PropertyBase {
         // super.render();
         var val = this.getCurrentVal();
 
-        var draggable = this.$input.data('draggable');
+        var draggable = $(this.$input[0]).data('draggable');
 
         if (draggable) {
-            draggable.set(val.toFixed(3));
+            draggable.set(val.x);
         }
         else {
-            this.$input.val(val.toFixed(3));
+            $(this.$input[0]).val(val.x);
+        }
+
+        var draggable = $(this.$input[1]).data('draggable');
+
+        if (draggable) {
+            draggable.set(val.y);
+        }
+        else {
+            $(this.$input[1]).val(val.y);
+        }
+
+        var draggable = $(this.$input[2]).data('draggable');
+
+        if (draggable) {
+            draggable.set(val.z);
+        }
+        else {
+            $(this.$input[2]).val(val.z);
+        }
+
+        var draggable = $(this.$input[3]).data('draggable');
+
+        if (draggable) {
+            draggable.set(val.w);
+        }
+        else {
+            $(this.$input[3]).val(val.w);
         }
     }
 }

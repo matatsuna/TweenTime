@@ -1,4 +1,5 @@
-let Signals = require('js-signals');
+let Signals = require('signals');
+import 'setimmediate'
 
 export default class Timer {
   constructor(options = {}) {

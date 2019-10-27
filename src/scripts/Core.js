@@ -99,7 +99,7 @@ class Core {
     else {
       // If we are not on a key but the property has other keys,
       // create it and add it to the keys array.
-      key = {val: new_val, time: time, _property: property};
+      key = { val: new_val, time: time, _property: property };
       if (this.options.defaultEase) {
         key.ease = this.options.defaultEase;
       }
@@ -122,4 +122,6 @@ class Core {
   }
 }
 
-module.exports = Core;
+// module.exports = Core;
+
+export default Core;

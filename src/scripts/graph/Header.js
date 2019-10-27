@@ -1,6 +1,6 @@
 let d3 = require('d3');
 
-let Signals = require('js-signals');
+let Signals = require('signals');
 import Utils from '../core/Utils';
 
 export default class Header {
@@ -10,7 +10,7 @@ export default class Header {
     this.tweenTime = tweenTime;
 
     this.onBrush = new Signals.Signal();
-    this.margin = {top: 10, right: 20, bottom: 0, left: margin.left};
+    this.margin = { top: 10, right: 20, bottom: 0, left: margin.left };
     this.height = 50 - this.margin.top - this.margin.bottom + 20;
 
     this.currentTime = this.timer.time;
@@ -104,7 +104,7 @@ export default class Header {
   createTimeHandle() {
     var self = this;
 
-    var dragTimeMove = function() {
+    var dragTimeMove = function () {
       var event = d3.event.sourceEvent;
       event.stopPropagation();
       var tweenTime = self.tweenTime;
@@ -128,7 +128,7 @@ export default class Header {
     };
 
     var dragTime = d3.behavior.drag()
-      .origin(function(d) {
+      .origin(function (d) {
         return d;
       })
       .on('drag', dragTimeMove);
@@ -141,7 +141,7 @@ export default class Header {
       .attr('width', self.xDisplayed(self.timer.totalDuration))
       .attr('height', 50)
       .attr('fill-opacity', 0)
-      .on('click', function() {
+      .on('click', function () {
         var mouse = d3.mouse(this);
         var dx = self.xDisplayed.invert(mouse[0]);
         dx = dx.getTime();
