@@ -20,40 +20,51 @@ module.exports = [{
                 exclude: /node_modules/,
                 loader: 'babel-loader',
             },
-            { test: /\.css$/, use: 'css-loader' },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: true
+                        }
+                    },
+                ]
+            },
+            {
+                test: /\.(ttf|eot|woff|woff2|svg)$/,
+                use: [{
+                    loader: 'url-loader',
+                }]
+            },
             {
                 test: /\.tpl\.html$/,
                 loader: 'mustache-loader'
             },
+            {
+                test: /\.sass$/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            url: false,
+                            sourceMap: true,
+                            importLoaders: 2
+                        }
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                ]
+            }
         ]
     },
     plugins: [
     ]
 },
-{
-    mode: "development",
-    context: path.join(__dirname, 'src/styles'),
-    entry: {
-        editor: './editor.sass'
-    },
-    output: {
-        path: path.join(__dirname, 'dist/styles'),
-        filename: '[name].css'
-    },
-    module: {
-        rules: [
-            {
-                test: /\.sass$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-            }
-        ]
-    },
-    plugins: [
-        new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
-            filename: './[name].css',
-            chunkFilename: '[id].css',
-        }),
-    ]
-}];
+];
