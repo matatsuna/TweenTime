@@ -1,5 +1,5 @@
 {
-  "name": "TweenTime",
+  "name": "@matatsuna/tweentime",
   "version": "3.0.4",
   "author": "stimul.ch / David Mignot",
   "main": "src/scripts/app.js",
