@@ -4,11 +4,12 @@
 
 ![screenshot](screenshot.gif)
 
-## 行った変更
+## 行った変更 (@matatsuna)
 - webpack化
 - js-signalsをsignalsへ
 - TweenTime.main.jsに集約
 - setimmediateを読み込み
+- cssをjsでbundleするように
 
 ## Demo
 
