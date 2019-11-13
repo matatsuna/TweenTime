@@ -1,8 +1,13 @@
 {
   "name": "@matatsuna/tweentime",
   "version": "3.0.4",
-  "author": "stimul.ch / David Mignot",
+  "author": "stimul.ch / David Mignot / forked matatsuna",
   "main": "src/scripts/app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matatsuna/TweenTime.git"
+  },
+  "private": false,
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
     "build:watch": "npm run build -- --watch",
